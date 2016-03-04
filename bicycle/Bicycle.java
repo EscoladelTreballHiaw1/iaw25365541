@@ -58,7 +58,11 @@ public class Bicycle {
     public Bicycle(int nFrontSprockets, int nRearSprockets, double v) {
         this.model = "Mountain bike";
         this.nFrontSprockets = nFrontSprockets;
-        this.nRearSprockets = nRearSprockets;
+        if (nRearSprockets >= 3) {
+            this.nRearSprockets = nRearSprockets;
+        } else {
+            this.nRearSprockets = 3;
+        }
         this.frontSprocket = nFrontSprockets;
         this.rearSprocket = 1;
         this.v = v;
@@ -77,9 +81,17 @@ public class Bicycle {
     public Bicycle(String model, int frontSprocket, int rearSprocket, int nFrontSprockets, int nRearSprockets, double v) {
         this.model = model;
         this.frontSprocket = frontSprocket;
-        this.rearSprocket = rearSprocket;
         this.nFrontSprockets = nFrontSprockets;
-        this.nRearSprockets = nRearSprockets;
+        if (nRearSprockets >= 3) {
+            this.nRearSprockets = nRearSprockets;
+        } else {
+            this.nRearSprockets = 3;
+        }
+        if (rearSprocket >= 1 || rearSprocket <= nRearSprockets) {
+            this.rearSprocket = rearSprocket;
+        } else {
+            this.rearSprocket = 1;
+        }
         this.v = v;
     }
 
@@ -142,6 +154,63 @@ public class Bicycle {
             newV = 0;
         this.v = newV;
     }
+    
+    /**
+     * Stops the bicycle
+     */
+    public void stop() {
+        this.v = 0;
+    }
+    
+    /**
+     * 
+     * 
+     * @return True
+     */
+    public boolean slowDown() {
+        boolean hasChanged = false;
+        if (this.frontSprocket == 1) {
+            for (int i = getRearSprocket(); i <= this.nRearSprockets; i++) {
+                setRearSprocket(i);
+            }
+            setFrontSprocket(getFrontSprocket() - 1);
+            setRearSprocket(getRearSprocket() - 1);
+            hasChanged = true;
+        } else {
+            for (int i = getRearSprocket(); i < this.nRearSprockets; i++) {
+                setRearSprocket(i);
+            }
+            setFrontSprocket(getFrontSprocket() - 1);
+            setRearSprocket(getRearSprocket() - 1);
+            hasChanged = true;
+        }
+        return hasChanged;
+    }
+    
+    /**
+     * 
+     * 
+     * @return True 
+     */
+    public boolean speedUp() {
+        boolean hasChanged = false;
+        if (this.frontSprocket == 1) {
+            for (int i = getFrontSprocket(); i >= 1; i--) {
+                setFrontSprocket(i);
+            }
+            setFrontSprocket(getFrontSprocket() + 1);
+            setRearSprocket(getRearSprocket() + 1);
+            hasChanged = true;
+        } else {
+            for (int i = getFrontSprocket(); i <= 1; i--) {
+                setFrontSprocket(i);
+            }
+            setFrontSprocket(getFrontSprocket() + 1);
+            setRearSprocket(getRearSprocket() + 1);
+            hasChanged = true;
+        }
+        return hasChanged;
+    }
 
     // Setter and getters
     public String getModel() {
@@ -157,7 +226,11 @@ public class Bicycle {
     }
 
     public void setRearSprocket(int rearSprocket) {
-        this.rearSprocket = rearSprocket;
+        if (rearSprocket >= 1 || rearSprocket <= this.nRearSprockets) {
+            this.rearSprocket = rearSprocket;
+        } else {
+            this.rearSprocket = 3;
+        }
     }
 
     public int getFrontSprocket() {
@@ -165,7 +238,11 @@ public class Bicycle {
     }
 
     public void setFrontSprocket(int frontSprocket) {
-        this.frontSprocket = frontSprocket;
+        if (frontSprocket >= 1 || frontSprocket <= this.nFrontSprockets) {
+            this.frontSprocket = frontSprocket;
+        } else {
+            this.frontSprocket = 3;
+        }
     }
 
     public double getV() {
