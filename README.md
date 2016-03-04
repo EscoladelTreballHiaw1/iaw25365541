@@ -1,4 +1,3 @@
-#iaw25365541
 # Pràctiques
 Pràctiques de classes i objectes
 
