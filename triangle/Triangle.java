@@ -56,7 +56,10 @@ public class Triangle {
      * Method to calculate the triangle's area.
      */
     public double area() {
-        double area = (Math.sqrt(Math.pow((Math.pow(this.side1,2) + Math.pow(this.side2,2) + Math.pow(this.side3,2)),2) - (2 * (Math.pow(this.side1,2) + Math.pow(this.side2,2) + Math.pow(this.side3,2))))) / 4;
+        double area = Math.pow((Math.pow(side1,2) + Math.pow(side2,2) + Math.pow(side3,2)),2);
+        area -= 2 * (Math.pow(side1,4) + Math.pow(side2,4) + Math.pow(side3,4));
+        area = Math.sqrt(area);
+        area /= 4;
         return area;
     }
 }
